@@ -1,4 +1,5 @@
 import 'package:delivery_codefactory/common/const/data.dart';
+import 'package:delivery_codefactory/common/dio/dio.dart';
 import 'package:delivery_codefactory/restaurant/component/restaurant_card.dart';
 import 'package:delivery_codefactory/restaurant/model/model_restaurant.dart';
 import 'package:delivery_codefactory/restaurant/route/route_restaurant_detail.dart';
@@ -11,6 +12,8 @@ class RouteRestaurant extends StatelessWidget {
   Future<List> paginate() async {
     final dio = Dio();
     final accessToken = await storage.read(key: Token_Key_Access);
+
+    dio.interceptors.add(CustomInterceptor());
 
     final resp = await dio.get(
       'http://$ip/restaurant',
