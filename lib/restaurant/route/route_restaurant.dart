@@ -1,29 +1,23 @@
-import 'package:delivery_codefactory/common/const/data.dart';
-import 'package:delivery_codefactory/common/dio/dio.dart';
+import 'package:delivery_codefactory/common/model/model_cursor_pagination.dart';
 import 'package:delivery_codefactory/restaurant/component/restaurant_card.dart';
 import 'package:delivery_codefactory/restaurant/model/model_restaurant.dart';
 import 'package:delivery_codefactory/restaurant/repository/repository_restaurant.dart';
 import 'package:delivery_codefactory/restaurant/route/route_restaurant_detail.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class RouteRestaurant extends StatelessWidget {
+class RouteRestaurant extends ConsumerStatefulWidget {
   const RouteRestaurant({Key? key}) : super(key: key);
 
-  Future<List<ModelRestaurant>> paginate() async {
-    final dio = Dio();
+  @override
+  ConsumerState<RouteRestaurant> createState() => _RouteRestaurantState();
+}
 
-    dio.interceptors.add(CustomInterceptor());
-
-    final repository = await RepositoryRestaurant(dio, baseUrl: 'http://$ip/restaurant').paginate();
-
-    return repository.data;
-  }
-
+class _RouteRestaurantState extends ConsumerState<RouteRestaurant> {
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<ModelRestaurant>>(
-        future: paginate(),
+    return FutureBuilder<CursorPagination<ModelRestaurant>>(
+        future: ref.watch(providerRepositoryRestaurant).paginate(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return const Center(child: CircularProgressIndicator());
@@ -32,7 +26,7 @@ class RouteRestaurant extends StatelessWidget {
           return ListView.separated(
             physics: const BouncingScrollPhysics(),
             itemBuilder: (context, index) {
-              final modelRestaurant = snapshot.data![index];
+              final modelRestaurant = snapshot.data!.data[index];
 
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -49,7 +43,7 @@ class RouteRestaurant extends StatelessWidget {
               );
             },
             separatorBuilder: (context, index) => const SizedBox(height: 20),
-            itemCount: snapshot.data!.length,
+            itemCount: snapshot.data!.data.length,
           );
         });
   }

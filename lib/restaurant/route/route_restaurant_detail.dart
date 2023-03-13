@@ -1,14 +1,12 @@
-import 'package:delivery_codefactory/common/const/data.dart';
-import 'package:delivery_codefactory/common/dio/dio.dart';
 import 'package:delivery_codefactory/common/layout/layout_default.dart';
 import 'package:delivery_codefactory/product/component/product_card.dart';
 import 'package:delivery_codefactory/restaurant/component/restaurant_card.dart';
 import 'package:delivery_codefactory/restaurant/model/model_restaurant_detail.dart';
 import 'package:delivery_codefactory/restaurant/repository/repository_restaurant.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class RouteRestaurantDetail extends StatelessWidget {
+class RouteRestaurantDetail extends ConsumerStatefulWidget {
   final String id;
 
   const RouteRestaurantDetail({
@@ -16,20 +14,15 @@ class RouteRestaurantDetail extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  Future<ModelRestaurantDetail> getRestaurantDetail() async {
-    final dio = Dio();
+  @override
+  ConsumerState<RouteRestaurantDetail> createState() => _RouteRestaurantDetailState();
+}
 
-    dio.interceptors.add(CustomInterceptor());
-
-    final repository = RepositoryRestaurant(dio, baseUrl: 'http://$ip/restaurant').getRestaurantDetail(id: id);
-
-    return repository;
-  }
-
+class _RouteRestaurantDetailState extends ConsumerState<RouteRestaurantDetail> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<ModelRestaurantDetail>(
-        future: getRestaurantDetail(),
+        future: ref.watch(providerRepositoryRestaurant).getRestaurantDetail(id: widget.id),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return const Scaffold(body: Center(child: CircularProgressIndicator()));

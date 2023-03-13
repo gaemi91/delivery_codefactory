@@ -1,12 +1,13 @@
 import 'package:delivery_codefactory/common/route/route_common_splash.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 
 var logger = Logger(printer: PrettyPrinter(methodCount: 1));
 var loggerDetail = Logger(printer: PrettyPrinter(methodCount: 3));
 
 void main() {
-  runApp(const _App());
+  runApp(const ProviderScope(child: _App()));
 }
 
 class _App extends StatelessWidget {

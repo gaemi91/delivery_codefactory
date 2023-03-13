@@ -4,17 +4,19 @@ import 'package:delivery_codefactory/common/const/colors.dart';
 import 'package:delivery_codefactory/common/const/data.dart';
 import 'package:delivery_codefactory/common/layout/layout_default.dart';
 import 'package:delivery_codefactory/common/route/route_common_tap.dart';
+import 'package:delivery_codefactory/common/secure_storage/secure_storage.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class RouteUserLogin extends StatefulWidget {
+class RouteUserLogin extends ConsumerStatefulWidget {
   const RouteUserLogin({Key? key}) : super(key: key);
 
   @override
-  State<RouteUserLogin> createState() => _RouteUserLoginState();
+  ConsumerState<RouteUserLogin> createState() => _RouteUserLoginState();
 }
 
-class _RouteUserLoginState extends State<RouteUserLogin> {
+class _RouteUserLoginState extends ConsumerState<RouteUserLogin> {
   String inputId = '';
   String inputPass = '';
 
@@ -70,6 +72,7 @@ class _RouteUserLoginState extends State<RouteUserLogin> {
                       child: ElevatedButton(
                         onPressed: () async {
                           final dio = Dio();
+                          final storage = ref.read(providerStorage);
                           final rawIdPass = '$inputId:$inputPass';
 
                           Codec<String, String> stringToBase64 = utf8.fuse(base64);
