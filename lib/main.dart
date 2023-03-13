@@ -1,4 +1,4 @@
-import 'package:delivery_codefactory/user/route/route_user_login.dart';
+import 'package:delivery_codefactory/common/route/route_common_splash.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 
@@ -17,7 +17,7 @@ class _App extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: 'Notosans'),
-      home: const RouteUserLogin(),
+      home: const RouteCommonSplash(),
     );
   }
 }
