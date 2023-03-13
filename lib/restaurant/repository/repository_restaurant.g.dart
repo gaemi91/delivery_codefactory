@@ -19,9 +19,13 @@ class _RepositoryRestaurant implements RepositoryRestaurant {
   String? baseUrl;
 
   @override
-  Future<CursorPagination<ModelRestaurant>> paginate() async {
+  Future<CursorPagination<ModelRestaurant>> paginate(
+      {modelCursorPaginationMore = const ModelCursorPaginationMore()}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters
+        .addAll(modelCursorPaginationMore?.toJson() ?? <String, dynamic>{});
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{r'accessToken': 'true'};
     _headers.removeWhere((k, v) => v == null);
     final Map<String, dynamic>? _data = null;
