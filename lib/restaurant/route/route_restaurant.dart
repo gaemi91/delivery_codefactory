@@ -33,7 +33,7 @@ class RouteRestaurant extends StatelessWidget {
             physics: const BouncingScrollPhysics(),
             itemBuilder: (context, index) {
               final listItems = snapshot.data![index];
-              final ModelRestaurant modelRestaurant = ModelRestaurant.fromJson(json: listItems);
+              final ModelRestaurant modelRestaurant = ModelRestaurant.fromJson(listItems);
 
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -49,7 +49,7 @@ class RouteRestaurant extends StatelessWidget {
                 ),
               );
             },
-            separatorBuilder: (context, index) => const SizedBox(height: 10),
+            separatorBuilder: (context, index) => const SizedBox(height: 20),
             itemCount: snapshot.data!.length,
           );
         });
