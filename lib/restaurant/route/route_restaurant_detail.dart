@@ -5,6 +5,7 @@ import 'package:delivery_codefactory/restaurant/model/model_restaurant_detail.da
 import 'package:delivery_codefactory/restaurant/provider/provider_restaurant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:skeletons/skeletons.dart';
 
 class RouteRestaurantDetail extends ConsumerStatefulWidget {
   final String id;
@@ -41,6 +42,7 @@ class _RouteRestaurantDetailState extends ConsumerState<RouteRestaurantDetail> {
               isDetail: true,
             ),
           ),
+          if (data is! ModelRestaurantDetail) renderLoading(),
           if (data is ModelRestaurantDetail)
             const SliverPadding(
               padding: EdgeInsets.symmetric(horizontal: 10.0),
@@ -69,6 +71,33 @@ class _RouteRestaurantDetailState extends ConsumerState<RouteRestaurantDetail> {
             )
         ],
       ),
+    );
+  }
+
+  SliverPadding renderLoading() {
+    return SliverPadding(
+      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+      sliver: SliverList(
+          delegate: SliverChildListDelegate(
+        [
+          ...List.generate(
+            4,
+            (index) => const SkeletonLine(
+              style: SkeletonLineStyle(
+                padding: EdgeInsets.only(bottom: 10.0),
+              ),
+            ),
+          ),
+          const SizedBox(height: 10.0),
+          ...List.generate(
+            5,
+            (index) => SkeletonListTile(
+              padding: const EdgeInsets.only(bottom: 10.0),
+              hasSubtitle: true,
+            ),
+          ),
+        ],
+      )),
     );
   }
 }
