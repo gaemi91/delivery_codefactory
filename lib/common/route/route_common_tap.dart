@@ -1,5 +1,6 @@
 import 'package:delivery_codefactory/common/const/colors.dart';
 import 'package:delivery_codefactory/common/layout/layout_default.dart';
+import 'package:delivery_codefactory/restaurant/route/route_restaurant.dart';
 import 'package:flutter/material.dart';
 
 class RouteCommonTap extends StatefulWidget {
@@ -41,7 +42,7 @@ class _RouteCommonTapState extends State<RouteCommonTap> with SingleTickerProvid
         controller: tabController,
         physics: const NeverScrollableScrollPhysics(),
         children: [
-          Text('홈'),
+          RestaurantRouteMain(),
           Text('음식'),
           Text('주문'),
           Text('프로필'),
