@@ -42,7 +42,7 @@ class _RouteCommonTapState extends State<RouteCommonTap> with SingleTickerProvid
         controller: tabController,
         physics: const NeverScrollableScrollPhysics(),
         children: [
-          RestaurantRoute(),
+          RouteRestaurant(),
           Text('음식'),
           Text('주문'),
           Text('프로필'),
