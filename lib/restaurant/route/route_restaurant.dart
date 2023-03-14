@@ -52,6 +52,15 @@ class _RouteRestaurantState extends ConsumerState<RouteRestaurant> {
       controller: scrollController,
       physics: const BouncingScrollPhysics(),
       itemBuilder: (context, index) {
+        if (index == cursorPagination.data.length) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20.0),
+            child: Center(
+                child:
+                    data is CursorPaginationFetchMore ? const CircularProgressIndicator() : const Text('데이터가 더이상 없습니다.')),
+          );
+        }
+
         final modelRestaurant = cursorPagination.data[index];
 
         return Padding(
@@ -69,7 +78,7 @@ class _RouteRestaurantState extends ConsumerState<RouteRestaurant> {
         );
       },
       separatorBuilder: (context, index) => const SizedBox(height: 20),
-      itemCount: cursorPagination.data.length,
+      itemCount: cursorPagination.data.length + 1,
     );
   }
 }

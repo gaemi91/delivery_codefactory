@@ -2,6 +2,7 @@ import 'package:delivery_codefactory/common/const/data.dart';
 import 'package:delivery_codefactory/common/dio/dio.dart';
 import 'package:delivery_codefactory/common/model/model_cursor_pagination.dart';
 import 'package:delivery_codefactory/common/model/model_cursor_pagination_more.dart';
+import 'package:delivery_codefactory/common/repository/repository_pagination.dart';
 import 'package:delivery_codefactory/restaurant/model/model_restaurant.dart';
 import 'package:delivery_codefactory/restaurant/model/model_restaurant_detail.dart';
 import 'package:dio/dio.dart' hide Headers;
@@ -18,9 +19,10 @@ final providerRepositoryRestaurant = Provider<RepositoryRestaurant>((ref) {
 });
 
 @RestApi()
-abstract class RepositoryRestaurant {
+abstract class RepositoryRestaurant implements IRepositoryPagination<ModelRestaurant> {
   factory RepositoryRestaurant(Dio dio, {String baseUrl}) = _RepositoryRestaurant;
 
+  @override
   @GET('/')
   @Headers({Token_Key_Access: 'true'})
   Future<CursorPagination<ModelRestaurant>> paginate({

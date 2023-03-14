@@ -2,6 +2,7 @@ import 'package:delivery_codefactory/common/const/data.dart';
 import 'package:delivery_codefactory/common/dio/dio.dart';
 import 'package:delivery_codefactory/common/model/model_cursor_pagination.dart';
 import 'package:delivery_codefactory/common/model/model_cursor_pagination_more.dart';
+import 'package:delivery_codefactory/common/repository/repository_pagination.dart';
 import 'package:delivery_codefactory/rating/model/model_rating.dart';
 import 'package:dio/dio.dart' hide Headers;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -16,9 +17,10 @@ final providerRepositoryRestaurantRating = Provider.family<RepositoryRestaurantR
 });
 
 @RestApi()
-abstract class RepositoryRestaurantRating {
+abstract class RepositoryRestaurantRating implements IRepositoryPagination<ModelRating> {
   factory RepositoryRestaurantRating(Dio dio, {String baseUrl}) = _RepositoryRestaurantRating;
 
+  @override
   @GET('/')
   @Headers({Token_Key_Access: 'true'})
   Future<CursorPagination<ModelRating>> paginate({

@@ -23,18 +23,18 @@ class CursorPagination<T> extends CursorPaginationBase {
       _$CursorPaginationFromJson(json, fromJsonT);
 
   CursorPagination copyWith({CursorPaginationMeta? meta, List<T>? data}) {
-    return CursorPagination(
+    return CursorPagination<T>(
       meta: meta ?? this.meta,
       data: data ?? this.data,
     );
   }
 }
 
-class CursorPaginationRefresh<T> extends CursorPagination {
+class CursorPaginationRefresh<T> extends CursorPagination<T> {
   CursorPaginationRefresh({required super.meta, required super.data});
 }
 
-class CursorPaginationFetchMore<T> extends CursorPagination {
+class CursorPaginationFetchMore<T> extends CursorPagination<T> {
   CursorPaginationFetchMore({required super.meta, required super.data});
 }
 
