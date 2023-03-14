@@ -1,5 +1,6 @@
 import 'package:delivery_codefactory/common/layout/layout_default.dart';
 import 'package:delivery_codefactory/product/component/product_card.dart';
+import 'package:delivery_codefactory/rating/component/rating_card.dart';
 import 'package:delivery_codefactory/restaurant/component/restaurant_card.dart';
 import 'package:delivery_codefactory/restaurant/model/model_restaurant_detail.dart';
 import 'package:delivery_codefactory/restaurant/provider/provider_restaurant.dart';
@@ -68,7 +69,24 @@ class _RouteRestaurantDetailState extends ConsumerState<RouteRestaurantDetail> {
                   childCount: data.products.length,
                 ),
               ),
-            )
+            ),
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+            sliver: SliverToBoxAdapter(
+              child: RatingCard(
+                avatarImage: AssetImage('asset/img/logo/codefactory_logo.png'),
+                email: 'wannnnny@naver.com',
+                rating: 4,
+                content: 'sdjsldkfjsalkdfjsalkdfjalskdfaslkdflksjfsldkfjasldksadfasdfsdfsdfsfsfd',
+                images: [
+                  Image.asset('asset/img/food/ddeok_bok_gi.jpg'),
+                  Image.asset('asset/img/food/ddeok_bok_gi.jpg'),
+                  Image.asset('asset/img/food/ddeok_bok_gi.jpg'),
+                  Image.asset('asset/img/food/ddeok_bok_gi.jpg'),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
