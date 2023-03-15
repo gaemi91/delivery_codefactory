@@ -41,7 +41,7 @@ class RatingCard extends StatelessWidget {
         const SizedBox(height: 5.0),
         _Body(content: content),
         const SizedBox(height: 5.0),
-        SizedBox(height: 100, child: _Images(images: images)),
+        if (images.isNotEmpty) SizedBox(height: 100, child: _Images(images: images)),
       ],
     );
   }
@@ -68,7 +68,12 @@ class _Header extends StatelessWidget {
           radius: 12.0,
         ),
         const SizedBox(width: 10.0),
-        Expanded(child: Text(email)),
+        Expanded(
+            child: Text(
+          email,
+          overflow: TextOverflow.ellipsis,
+          style: const TextStyle(fontSize: 14.0, fontWeight: FontWeight.w500),
+        )),
         const SizedBox(width: 10.0),
         ...List.generate(
             5,

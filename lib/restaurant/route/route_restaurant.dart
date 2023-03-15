@@ -1,4 +1,5 @@
 import 'package:delivery_codefactory/common/model/model_cursor_pagination.dart';
+import 'package:delivery_codefactory/common/utils/utils_pagination.dart';
 import 'package:delivery_codefactory/restaurant/component/restaurant_card.dart';
 import 'package:delivery_codefactory/restaurant/provider/provider_restaurant.dart';
 import 'package:delivery_codefactory/restaurant/route/route_restaurant_detail.dart';
@@ -28,10 +29,11 @@ class _RouteRestaurantState extends ConsumerState<RouteRestaurant> {
     super.dispose();
   }
 
-  scrollListener() {
-    if (scrollController.offset > scrollController.position.maxScrollExtent - 300) {
-      ref.watch(stateNotifierProviderRestaurant.notifier).paginate(fetchMore: true);
-    }
+  void scrollListener() {
+    UtilsPagination.paginate(
+      scrollController: scrollController,
+      providerPagination: ref.read(stateNotifierProviderRestaurant.notifier),
+    );
   }
 
   @override
@@ -56,8 +58,9 @@ class _RouteRestaurantState extends ConsumerState<RouteRestaurant> {
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 20.0),
             child: Center(
-                child:
-                    data is CursorPaginationFetchMore ? const CircularProgressIndicator() : const Text('데이터가 더이상 없습니다.')),
+                child: data is CursorPaginationFetchMore
+                    ? const CircularProgressIndicator()
+                    : const Text('데이터가 더이상 없습니다.')),
           );
         }
 
