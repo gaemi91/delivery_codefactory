@@ -86,7 +86,7 @@ class _RouteRestaurantDetailState extends ConsumerState<RouteRestaurantDetail> {
                     final products = data.products[index];
                     return Padding(
                       padding: const EdgeInsets.only(top: 10.0),
-                      child: ProductCard.fromModel(model: products),
+                      child: ProductCard.fromModelRestaurantDetail(model: products),
                     );
                   },
                   childCount: data.products.length,
