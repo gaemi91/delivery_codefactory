@@ -1,15 +1,14 @@
-import 'dart:convert';
 import 'package:delivery_codefactory/common/component/custom_text_form_field.dart';
 import 'package:delivery_codefactory/common/const/colors.dart';
-import 'package:delivery_codefactory/common/const/data.dart';
 import 'package:delivery_codefactory/common/layout/layout_default.dart';
-import 'package:delivery_codefactory/common/route/route_common_tap.dart';
-import 'package:delivery_codefactory/common/secure_storage/secure_storage.dart';
-import 'package:dio/dio.dart';
+import 'package:delivery_codefactory/user/model/model_user.dart';
+import 'package:delivery_codefactory/user/provider/provider_user_me.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class RouteUserLogin extends ConsumerStatefulWidget {
+  static String get routeName => 'login';
+
   const RouteUserLogin({Key? key}) : super(key: key);
 
   @override
@@ -22,6 +21,8 @@ class _RouteUserLoginState extends ConsumerState<RouteUserLogin> {
 
   @override
   Widget build(BuildContext context) {
+    final state = ref.watch(stateNotifierProviderUserMe);
+
     return LayoutDefault(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -70,24 +71,14 @@ class _RouteUserLoginState extends ConsumerState<RouteUserLogin> {
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
-                        onPressed: () async {
-                          final dio = Dio();
-                          final storage = ref.read(providerStorage);
-                          final rawIdPass = '$inputId:$inputPass';
-
-                          Codec<String, String> stringToBase64 = utf8.fuse(base64);
-                          final token = stringToBase64.encoder.convert(rawIdPass);
-
-                          final resp = await dio.post(
-                            'http://$ip/auth/login',
-                            options: Options(headers: {authorization: 'Basic $token'}),
-                          );
-
-                          await storage.write(key: Token_Key_Access, value: resp.data[Token_Key_Access]);
-                          await storage.write(key: Token_Key_Refresh, value: resp.data[Token_Key_Refresh]);
-
-                          Navigator.of(context).push(MaterialPageRoute(builder: (_) => const RouteCommonTap()));
-                        },
+                        onPressed: state is ModelUserLoading
+                            ? null
+                            : () async {
+                                ref.read(stateNotifierProviderUserMe.notifier).logIn(
+                                      username: inputId,
+                                      password: inputPass,
+                                    );
+                              },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color_Main,
                         ),

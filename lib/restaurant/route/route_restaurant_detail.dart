@@ -13,6 +13,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:skeletons/skeletons.dart';
 
 class RouteRestaurantDetail extends ConsumerStatefulWidget {
+  static String get routeName => 'restaurantDetail';
+
   final String id;
 
   const RouteRestaurantDetail({required this.id, Key? key}) : super(key: key);

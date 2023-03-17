@@ -2,9 +2,12 @@ import 'package:delivery_codefactory/common/const/colors.dart';
 import 'package:delivery_codefactory/common/layout/layout_default.dart';
 import 'package:delivery_codefactory/product/route/route_product.dart';
 import 'package:delivery_codefactory/restaurant/route/route_restaurant.dart';
+import 'package:delivery_codefactory/user/route/route_user_profile.dart';
 import 'package:flutter/material.dart';
 
 class RouteCommonTap extends StatefulWidget {
+  static String get routeName => 'home';
+
   const RouteCommonTap({Key? key}) : super(key: key);
 
   @override
@@ -46,7 +49,7 @@ class _RouteCommonTapState extends State<RouteCommonTap> with SingleTickerProvid
           RouteRestaurant(),
           RouteProduct(),
           Text('주문'),
-          Text('프로필'),
+          RouteUserProfile(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
