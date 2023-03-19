@@ -90,7 +90,7 @@ class _RouteCommonPaginationState<T extends IModelWithId> extends ConsumerState<
 
         return widget.builder(context, index, model);
       },
-      separatorBuilder: (context, index) => const SizedBox(height: 20),
+      separatorBuilder: (context, index) => const SizedBox(height: 5),
       itemCount: cursorPaginationModel.data.length + 1,
     );
   }

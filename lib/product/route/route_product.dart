@@ -23,7 +23,7 @@ class RouteProduct extends StatelessWidget {
                 params: {'rid': model.restaurant.id},
               );
             },
-            child: ProductCard.fromModel(model: model),
+            child: ProductCard.fromModelProduct(modelProduct: model),
           ),
         );
       },

@@ -1,5 +1,6 @@
 import 'package:delivery_codefactory/common/route/route_common_splash.dart';
 import 'package:delivery_codefactory/common/route/route_common_tap.dart';
+import 'package:delivery_codefactory/restaurant/route/route_restaurant_basket.dart';
 import 'package:delivery_codefactory/restaurant/route/route_restaurant_detail.dart';
 import 'package:delivery_codefactory/user/model/model_user.dart';
 import 'package:delivery_codefactory/user/provider/provider_user_me.dart';
@@ -33,6 +34,11 @@ class ChangeNotifierAuth extends ChangeNotifier {
       path: '/login',
       name: RouteUserLogin.routeName,
       builder: (context, state) => const RouteUserLogin(),
+    ),
+    GoRoute(
+      path: '/basket',
+      name: RouteRestaurantBasket.routeName,
+      builder: (context, state) => const RouteRestaurantBasket(),
     ),
     GoRoute(
       path: '/',

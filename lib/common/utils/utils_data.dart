@@ -1,6 +1,6 @@
 import 'dart:convert';
-
 import 'package:delivery_codefactory/common/const/data.dart';
+import 'package:intl/intl.dart';
 
 class UtilsData {
   static String pathToUrl(String value) {
@@ -16,4 +16,6 @@ class UtilsData {
 
     return stringToBase64.encode(value);
   }
+
+  static var f = NumberFormat('###,###,###');
 }

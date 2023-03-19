@@ -28,7 +28,7 @@ class _RepositoryRestaurant implements RepositoryRestaurant {
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{r'accessToken': 'true'};
     _headers.removeWhere((k, v) => v == null);
-    final Map<String, dynamic>? _data = null;
+    final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<CursorPagination<ModelRestaurant>>(Options(
       method: 'GET',
@@ -55,7 +55,7 @@ class _RepositoryRestaurant implements RepositoryRestaurant {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'accessToken': 'true'};
     _headers.removeWhere((k, v) => v == null);
-    final Map<String, dynamic>? _data = null;
+    final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<ModelRestaurantDetail>(Options(
       method: 'GET',

@@ -1,4 +1,5 @@
 import 'package:delivery_codefactory/common/const/colors.dart';
+import 'package:delivery_codefactory/common/utils/utils_data.dart';
 import 'package:delivery_codefactory/restaurant/model/model_restaurant.dart';
 import 'package:delivery_codefactory/restaurant/model/model_restaurant_detail.dart';
 import 'package:flutter/material.dart';
@@ -74,7 +75,10 @@ class RestaurantCard extends StatelessWidget {
                   renderDot(),
                   _IconData(iconData: Icons.timelapse, label: '$deliveryTime분'),
                   renderDot(),
-                  _IconData(iconData: Icons.monetization_on, label: deliveryFee == 0 ? '무료' : '$deliveryFee'),
+                  _IconData(
+                    iconData: Icons.monetization_on,
+                    label: deliveryFee == 0 ? '무료' : '${UtilsData.f.format(deliveryFee)}원',
+                  ),
                 ],
               ),
               if (isDetail && detail != null)
