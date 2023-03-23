@@ -72,26 +72,31 @@ class _RouteCommonPaginationState<T extends IModelWithId> extends ConsumerState<
 
     final cursorPaginationModel = state as CursorPagination<T>;
 
-    return ListView.separated(
-      controller: scrollController,
-      physics: const BouncingScrollPhysics(),
-      itemBuilder: (context, index) {
-        if (index == cursorPaginationModel.data.length) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
-            child: Center(
-                child: state is CursorPaginationFetchMore
-                    ? const CircularProgressIndicator()
-                    : const Text('데이터가 더이상 없습니다.')),
-          );
-        }
-
-        final T model = cursorPaginationModel.data[index];
-
-        return widget.builder(context, index, model);
+    return RefreshIndicator(
+      onRefresh: () async {
+        ref.read(widget.provider.notifier).paginate(forceRefetch: true);
       },
-      separatorBuilder: (context, index) => const SizedBox(height: 5),
-      itemCount: cursorPaginationModel.data.length + 1,
+      child: ListView.separated(
+        controller: scrollController,
+        physics: const AlwaysScrollableScrollPhysics(),
+        itemBuilder: (context, index) {
+          if (index == cursorPaginationModel.data.length) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
+              child: Center(
+                  child: state is CursorPaginationFetchMore
+                      ? const CircularProgressIndicator()
+                      : const Text('데이터가 더이상 없습니다.')),
+            );
+          }
+
+          final T model = cursorPaginationModel.data[index];
+
+          return widget.builder(context, index, model);
+        },
+        separatorBuilder: (context, index) => const SizedBox(height: 5),
+        itemCount: cursorPaginationModel.data.length + 1,
+      ),
     );
   }
 }

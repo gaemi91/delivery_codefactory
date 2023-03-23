@@ -1,10 +1,13 @@
 import 'package:delivery_codefactory/common/const/colors.dart';
 import 'package:delivery_codefactory/common/layout/layout_default.dart';
 import 'package:delivery_codefactory/common/utils/utils_data.dart';
+import 'package:delivery_codefactory/order/provider/provider_order.dart';
+import 'package:delivery_codefactory/order/route/route_order_done.dart';
 import 'package:delivery_codefactory/product/component/product_card.dart';
 import 'package:delivery_codefactory/user/provider/provider_basket.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class RouteRestaurantBasket extends ConsumerWidget {
   static String get routeName => 'basket';
@@ -83,7 +86,15 @@ class RouteRestaurantBasket extends ConsumerWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () async {
+                  final resp = await ref.read(providerOrder.notifier).postOrder();
+
+                  if (resp) {
+                    context.goNamed(RouteOrderDone.routeName);
+                  } else {
+                    const ScaffoldMessenger(child: SnackBar(content: Text('결제 실패')));
+                  }
+                },
                 style: ElevatedButton.styleFrom(backgroundColor: Color_Main),
                 child: const Text('결제하기'),
               ),

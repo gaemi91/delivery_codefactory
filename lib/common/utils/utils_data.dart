@@ -17,5 +17,9 @@ class UtilsData {
     return stringToBase64.encode(value);
   }
 
+  static DateTime stringToDateTime(String value) {
+    return DateTime.parse(value);
+  }
+
   static var f = NumberFormat('###,###,###');
 }

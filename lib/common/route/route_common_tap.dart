@@ -1,5 +1,6 @@
 import 'package:delivery_codefactory/common/const/colors.dart';
 import 'package:delivery_codefactory/common/layout/layout_default.dart';
+import 'package:delivery_codefactory/order/route/route_order.dart';
 import 'package:delivery_codefactory/product/route/route_product.dart';
 import 'package:delivery_codefactory/restaurant/route/route_restaurant.dart';
 import 'package:delivery_codefactory/user/route/route_user_profile.dart';
@@ -45,10 +46,10 @@ class _RouteCommonTapState extends State<RouteCommonTap> with SingleTickerProvid
       body: TabBarView(
         controller: tabController,
         physics: const NeverScrollableScrollPhysics(),
-        children: [
+        children: const [
           RouteRestaurant(),
           RouteProduct(),
-          Text('주문'),
+          RouteOrder(),
           RouteUserProfile(),
         ],
       ),
