@@ -3,6 +3,7 @@ import 'package:delivery_codefactory/user/model/model_basket.dart';
 import 'package:delivery_codefactory/user/model/model_basket_body.dart';
 import 'package:delivery_codefactory/user/repository/repository_user_me.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:debounce_throttle/debounce_throttle.dart';
 import 'package:collection/collection.dart';
 
 final providerBasket = StateNotifierProvider<ProviderBasket, List<ModelBasket>>((ref) {
@@ -13,8 +14,13 @@ final providerBasket = StateNotifierProvider<ProviderBasket, List<ModelBasket>>(
 
 class ProviderBasket extends StateNotifier<List<ModelBasket>> {
   final RepositoryUserMe repositoryUserMe;
+  final debounceBasket = Debouncer(const Duration(seconds: 1), initialValue: null, checkEquality: false);
 
-  ProviderBasket({required this.repositoryUserMe}) : super([]);
+  ProviderBasket({required this.repositoryUserMe}) : super([]) {
+    debounceBasket.values.listen((event) {
+      patchBasket();
+    });
+  }
 
   Future<void> patchBasket() async {
     await repositoryUserMe.patchBasket(
@@ -46,7 +52,7 @@ class ProviderBasket extends StateNotifier<List<ModelBasket>> {
         ModelBasket(product: modelProduct, count: 1),
       ];
     }
-    await patchBasket();
+    debounceBasket.setValue(null);
   }
 
   Future<void> removeFromBasket({
@@ -72,7 +78,6 @@ class ProviderBasket extends StateNotifier<List<ModelBasket>> {
               : e)
           .toList();
     }
-
-    await patchBasket();
+    debounceBasket.setValue(null);
   }
 }
